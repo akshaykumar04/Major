@@ -12,6 +12,8 @@ import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.am.major.env.BorderedText;
@@ -31,6 +33,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private static final String TF_OD_API_MODEL_FILE =
       "file:///android_asset/ssd_mobilenet_v1_android_export.pb";
   private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
+  private Button knowmore;
+  private String keyvalue;
 
   // Minimum detection confidence to track a detection.
   private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
@@ -67,6 +71,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
+    knowmore = findViewById(R.id.knowButton);
+
+    knowmore.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        getInfo();
+      }
+    });
 
     tracker = new MultiBoxTracker(this);
 
@@ -167,6 +179,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= MINIMUM_CONFIDENCE_TF_OD_API) {
                 LOGGER.i("Title: " + result.getTitle());
+                keyvalue = result.getTitle();
                 canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
@@ -192,6 +205,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   @Override
   protected Size getDesiredPreviewFrameSize() {
     return DESIRED_PREVIEW_SIZE;
+  }
+
+  private void getInfo(){
+    Toast.makeText(DetectorActivity.this, keyvalue, Toast.LENGTH_SHORT).show();
   }
 
 }
