@@ -1,5 +1,6 @@
 package com.am.major;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -208,7 +209,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   }
 
   private void getInfo(){
-    Toast.makeText(DetectorActivity.this, keyvalue, Toast.LENGTH_SHORT).show();
+    //Toast.makeText(DetectorActivity.this, keyvalue, Toast.LENGTH_SHORT).show();
+    Intent jobResults = new Intent(DetectorActivity.this, KnowMoreActivity.class);
+    jobResults.putExtra("keyword", keyvalue);
+    startActivity(jobResults);
   }
 
 }
