@@ -1,7 +1,6 @@
 package com.am.major;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-public class KnowMoreActivity extends AppCompatActivity {
+public class KnowMoreActivity extends Activity {
     private WebView wikiKnowMore;
     private ProgressBar progressBar;
     private String base_url = "https://en.wikipedia.org/wiki/";
@@ -19,7 +18,6 @@ public class KnowMoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_more);
-
         Bundle bundle = getIntent().getExtras();
         final String detectedItem = bundle.getString("keyword");
 
@@ -49,16 +47,19 @@ public class KnowMoreActivity extends AppCompatActivity {
         });
 
     }
+
     public class WebViewClient extends android.webkit.WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
         }
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
@@ -67,9 +68,5 @@ public class KnowMoreActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }
 
