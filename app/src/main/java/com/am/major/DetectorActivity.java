@@ -10,17 +10,20 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.am.major.env.BorderedText;
 import com.am.major.env.ImageUtils;
 import com.am.major.env.Logger;
 import com.am.major.tracking.MultiBoxTracker;
+import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -36,6 +39,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
   private Button knowmore;
   private String keyvalue;
+  private ImageView gif;
 
   // Minimum detection confidence to track a detection.
   private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
@@ -65,6 +69,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
   private BorderedText borderedText;
 
+
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
     final float textSizePx =
@@ -73,6 +78,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
     knowmore = findViewById(R.id.knowButton);
+    gif = findViewById(R.id.gifImage);
+    Glide.with(this).load(R.drawable.findobject).into(gif);
 
     knowmore.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -214,5 +221,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     jobResults.putExtra("keyword", keyvalue);
     startActivity(jobResults);
   }
+
 
 }

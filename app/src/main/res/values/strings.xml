@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Major Project</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="knowmore">Scan through different objects to know more!</string>
 </resources>
