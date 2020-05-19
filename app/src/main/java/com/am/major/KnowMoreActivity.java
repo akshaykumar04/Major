@@ -38,7 +38,7 @@ public class KnowMoreActivity extends Activity {
             wikiKnowMore.loadUrl(mouse);
         }
         else if (detectedItem.equals("keyboard")||(detectedItem.equals("laptop"))||(detectedItem.equals("clock"))
-                ||(detectedItem.equals("tv"))){
+                ||(detectedItem.equals("tv"))||(detectedItem.equals("cup"))){
            wikiKnowMore.loadUrl(amazon + detectedItem);
         }
         else if (detectedItem.equals("apple")||(detectedItem.equals("orange"))||(detectedItem.equals("banana"))
