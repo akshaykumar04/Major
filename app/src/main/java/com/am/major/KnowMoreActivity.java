@@ -1,8 +1,10 @@
 package com.am.major;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +14,9 @@ import android.widget.ProgressBar;
 public class KnowMoreActivity extends Activity {
     private WebView wikiKnowMore;
     private ProgressBar progressBar;
-    private String base_url = "https://en.wikipedia.org/wiki/";
+    private String wiki = "https://en.wikipedia.org/wiki/",
+            mouse = "https://www.amazon.in/Logitech-910-004655-Wireless-Mouse-M171/dp/B01C7BAONW",
+    amazon = "https://www.amazon.in/s?k=", grofers = "https://grofers.com/s/?q=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +33,35 @@ public class KnowMoreActivity extends Activity {
         wikiKnowMore.clearHistory();
         wikiKnowMore.clearCache(true);
         // wikiKnowMore.getSettings().setUserAgentString(newUA);
-        wikiKnowMore.loadUrl(base_url + detectedItem);
 
+        if (detectedItem.equals("mouse")){
+            wikiKnowMore.loadUrl(mouse);
+        }
+        else if (detectedItem.equals("keyboard")||(detectedItem.equals("laptop"))||(detectedItem.equals("clock"))
+                ||(detectedItem.equals("tv"))){
+           wikiKnowMore.loadUrl(amazon + detectedItem);
+        }
+        else if (detectedItem.equals("apple")||(detectedItem.equals("orange"))||(detectedItem.equals("banana"))
+                ||(detectedItem.equals("carrot"))){
+            wikiKnowMore.loadUrl(grofers + detectedItem);
+        }
+        else {
+            wikiKnowMore.loadUrl(wiki + detectedItem);
+        }
 
-        wikiKnowMore.canGoBack();
-        wikiKnowMore.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK
-                        && event.getAction() == MotionEvent.ACTION_UP
-                        && wikiKnowMore.canGoBack()) {
-                    wikiKnowMore.goBack();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        wikiKnowMore.canGoBack();
+//        wikiKnowMore.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK
+//                        && event.getAction() == MotionEvent.ACTION_UP
+//                        && wikiKnowMore.canGoBack()) {
+//                    wikiKnowMore.goBack();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
     }
 
@@ -68,5 +85,12 @@ public class KnowMoreActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent i = new Intent(KnowMoreActivity.this, DetectorActivity.class);
+        startActivity(i);
+        finish();
+    }
 }
 

@@ -199,7 +199,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             tracker.trackResults(mappedRecognitions);
             toSpeech(mappedRecognitions);
             trackingOverlay.postInvalidate();
-
             computingDetection = false;
           }
         });
@@ -221,6 +220,5 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     jobResults.putExtra("keyword", keyvalue);
     startActivity(jobResults);
   }
-
 
 }
