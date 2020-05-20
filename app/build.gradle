@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
-project.ext.TMP_DIR   = project.buildDir.toString() + '/downloads'
+project.ext.TMP_DIR = project.buildDir.toString() + '/downloads'
 apply from: "download-models.gradle"
 
 android {
@@ -39,4 +39,5 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
